@@ -13,6 +13,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 logging:
   level:
     org.hibernate.SQL: debug

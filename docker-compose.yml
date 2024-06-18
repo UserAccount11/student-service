@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: students_db
+    ports:
+      - "5432:5432"
+  student-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: student-service:latest
+    container_name: student-service
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: jdbc:postgresql://postgres:5432/students_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "8080:8080"
